@@ -1,8 +1,10 @@
 import React from 'react';
 import Head from 'next/head';
 import { AppBar, Toolbar, Typography, Container } from '@material-ui/core';
+import useStyles from '../utils/styles';
 
 const Layout = ({ children }) => {
+    const classes = useStyles();
     return (
         <div>
             <Head>
@@ -10,17 +12,17 @@ const Layout = ({ children }) => {
                     V-Market
                 </title>
             </Head>
-            <AppBar position="static">
+            <AppBar position="static" className={classes.navbar}>
                 <Toolbar>
                     <Typography>
                         V-market
                     </Typography>
                 </Toolbar>
             </AppBar>
-            <Container>
+            <Container className={classes.main}>
                 {children}
             </Container>
-            <footer>
+            <footer className={classes.footer}>
                 <Typography>
                     All rights resered . V-Market
                 </Typography>
