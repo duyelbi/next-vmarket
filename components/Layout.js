@@ -1,6 +1,13 @@
 import React from 'react';
 import Head from 'next/head';
-import { AppBar, Toolbar, Typography, Container } from '@material-ui/core';
+import {
+    Typography,
+    Container
+} from '@material-ui/core';
+
+import Header from '../layouts/Header';
+import Footer from '../layouts/Footer';
+
 import useStyles from '../utils/styles';
 
 const Layout = ({ children }) => {
@@ -12,21 +19,11 @@ const Layout = ({ children }) => {
                     V-Market
                 </title>
             </Head>
-            <AppBar position="static" className={classes.navbar}>
-                <Toolbar>
-                    <Typography>
-                        V-market
-                    </Typography>
-                </Toolbar>
-            </AppBar>
+            <Header />
             <Container className={classes.main}>
                 {children}
             </Container>
-            <footer className={classes.footer}>
-                <Typography>
-                    All rights resered . V-Market
-                </Typography>
-            </footer>
+            <Footer />
         </div>
     );
 }
