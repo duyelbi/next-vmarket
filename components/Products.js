@@ -1,4 +1,5 @@
 import React from 'react';
+import NextLink from 'next/link';
 import {
   Button,
   Card,
@@ -20,6 +21,7 @@ const Products = () => {
             {data.products.map((products) => (
               <Grid item md={3} key={products.name}>
                 <Card>
+                  <NextLink href={`/products/${products.slug}`} passHref>
                   <CardActionArea>
                     <CardMedia
                       component="img"
@@ -30,6 +32,7 @@ const Products = () => {
                       <Typography>{products.name}</Typography>
                     </CardContent>
                   </CardActionArea>
+                  </NextLink>
                   <CardActions>
                     <Typography>${products.price}</Typography>
                     <Button size="small" color="primary">
