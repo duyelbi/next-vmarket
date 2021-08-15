@@ -2,10 +2,10 @@ import { makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles({
   // -----------------------------------------------------------
-  // styles off header
+  // styles of header
   navbar: {
     backgroundColor: "#ffffff",
-    '& a': {
+    "& a": {
       color: "#121212",
       marginLeft: 10,
     },
@@ -19,19 +19,35 @@ const useStyles = makeStyles({
   grow: {
     flexGrow: 1,
   },
-  // end styles off header
+  // end styles of header
   // -----------------------------------------------------------
+
+
 
   main: {
     minHeight: "80vh",
   },
 
+
+
   // -----------------------------------------------------------
-  // styles off footer
+  // styles of product
+  section: {
+    marginTop: 10,
+    marginBottom: 10,
+  },
+  // end styles of product
+  // -----------------------------------------------------------
+
+
+
+  // -----------------------------------------------------------
+  // styles of footer
   footer: {
+    marginTop: 10,
     textAlign: "center",
   },
-  // end styles off footer
+  // end styles of footer
   // -----------------------------------------------------------
 });
 
