@@ -1,18 +1,23 @@
 import React from "react";
 import NextLink from "next/link";
 import Image from "next/image";
-import { Button, Card, Grid, Link, List, ListItem, Typography } from "@material-ui/core";
-import { useRouter } from "next/router";
-import data from "../../utils/data";
-import Layout from "../../components/layout";
+import {
+  Grid,
+  Link,
+  List,
+  ListItem,
+  Typography,
+  Card,
+  Button,
+} from "@material-ui/core";
+import Layout from "../../components/Layout";
 import useStyles from "../../utils/styles";
+import Product from "../../models/Product";
+import db from "../../utils/db";
 
-export default function ProductScreen() {
+export default function ProductScreen(props) {
+  const { product } = props;
   const classes = useStyles();
-
-  const router = useRouter();
-  const { slug } = router.query;
-  const product = data.products.find((a) => a.slug === slug);
   if (!product) {
     return <div>Product Not Found</div>;
   }
@@ -38,7 +43,9 @@ export default function ProductScreen() {
         <Grid item md={3} xs={12}>
           <List>
             <ListItem>
-              <Typography component="h1" variant="h1">{product.name}</Typography>
+              <Typography component="h1" variant="h1">
+                {product.name}
+              </Typography>
             </ListItem>
             <ListItem>
               <Typography>Category: {product.category}</Typography>
@@ -52,7 +59,7 @@ export default function ProductScreen() {
               </Typography>
             </ListItem>
             <ListItem>
-              <Typography>Description: {product.description} </Typography>
+              <Typography> Description: {product.description}</Typography>
             </ListItem>
           </List>
         </Grid>
@@ -76,7 +83,7 @@ export default function ProductScreen() {
                   </Grid>
                   <Grid item xs={6}>
                     <Typography>
-                      {product.countsInStock > 0 ? "In stock" : "Unavailable"}
+                      {product.countInStock > 0 ? "In stock" : "Unavailable"}
                     </Typography>
                   </Grid>
                 </Grid>
@@ -92,4 +99,18 @@ export default function ProductScreen() {
       </Grid>
     </Layout>
   );
+}
+
+export async function getServerSideProps(context) {
+  const { params } = context;
+  const { slug } = params;
+
+  await db.connect();
+  const product = await Product.findOne({ slug }).lean();
+  await db.disconnect();
+  return {
+    props: {
+      product: db.convertDocToObj(product),
+    },
+  };
 }
