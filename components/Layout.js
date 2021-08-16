@@ -2,7 +2,7 @@ import React from "react";
 import Head from "next/head";
 import {
   Container,
-  createMuiTheme,
+  createTheme,
   ThemeProvider,
   CssBaseline,
 } from "@material-ui/core";
@@ -13,7 +13,7 @@ import Footer from "./Footer";
 import useStyles from "../utils/styles";
 
 const Layout = ({ title, description, children }) => {
-  const theme = createMuiTheme({
+  const theme = createTheme({
     typography: {
       h1: {
         fontSize: "1.6rem",

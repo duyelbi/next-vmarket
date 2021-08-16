@@ -1,5 +1,6 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import '../styles/globals.css'
+import { StoreProvider } from '../utils/store';
 
 function MyApp({ Component, pageProps }) {
   useEffect(() => {
@@ -8,7 +9,13 @@ function MyApp({ Component, pageProps }) {
       jssStyles.parentElement.removeChild(jssStyles);
     }
   }, []);
-  return <Component {...pageProps} />
+  return (
+    <React.StrictMode>
+        <StoreProvider>
+          <Component {...pageProps} />
+        </StoreProvider>
+    </React.StrictMode>
+  );
 }
 
 export default MyApp

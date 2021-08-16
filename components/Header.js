@@ -10,27 +10,28 @@ import {
 import useStyles from "../utils/styles";
 
 const Header = () => {
-    const classes = useStyles();
-    return (
-      <AppBar position="static" className={classes.navbar}>
-        <Toolbar>
-          <NextLink href="/" passHref>
-            <Link>
-              <Typography className={classes.brand}>V-Market</Typography>
-            </Link>
+  const classes = useStyles();
+
+  return (
+    <AppBar position="static" className={classes.navbar}>
+      <Toolbar>
+        <NextLink href="/" passHref>
+          <Link>
+            <Typography className={classes.brand}>V-Market</Typography>
+          </Link>
+        </NextLink>
+        <div className={classes.grow}></div>
+        <div>
+          <NextLink href="/cart" passHref>
+            <Link>Cart</Link>
           </NextLink>
-          <div className={classes.grow}></div>
-          <div>
-            <NextLink href="/cart" passHref>
-              <Link>Cart</Link>
-            </NextLink>
-            <NextLink href="/login" passHref>
-              <Link>Login</Link>
-            </NextLink>
-          </div>
-        </Toolbar>
-      </AppBar>
-    );
-}
+          <NextLink href="/login" passHref>
+            <Link>Login</Link>
+          </NextLink>
+        </div>
+      </Toolbar>
+    </AppBar>
+  );
+};
 
 export default Header;
