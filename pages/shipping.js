@@ -4,6 +4,7 @@ import { Store } from "../utils/Store";
 
 export default function Shipping() {
   const router = useRouter();
+  // eslint-disable-next-line no-unused-vars
   const { state, dispatch } = useContext(Store);
   const { userInfo } = state;
   if (!userInfo) {
