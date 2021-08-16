@@ -1,15 +1,32 @@
+import bcrypt from "bcryptjs";
 const data = {
+  users: [
+    {
+      name: "John",
+      email: "admin@example.com",
+      password: bcrypt.hashSync("123456"),
+      isAdmin: true,
+    },
+    {
+      name: "Jane",
+      email: "user@example.com",
+      password: bcrypt.hashSync("123456"),
+      isAdmin: false,
+    },
+  ],
   products: [
     {
       name: "Free Shirt",
       slug: "free-shirt",
       category: "Shirts",
       image: "/images/shirt1.jpg",
+      isFeatured: true,
+      featuredImage: "/images/banner1.jpg",
       price: 70,
       brand: "Nike",
       rating: 4.5,
       numReviews: 10,
-      countsInStock: 20,
+      countInStock: 20,
       description: "A popular shirt",
     },
     {
@@ -17,11 +34,13 @@ const data = {
       slug: "fit-shirt",
       category: "Shirts",
       image: "/images/shirt2.jpg",
+      isFeatured: true,
+      featuredImage: "/images/banner2.jpg",
       price: 80,
       brand: "Adidas",
       rating: 4.2,
       numReviews: 10,
-      countsInStock: 20,
+      countInStock: 20,
       description: "A popular shirt",
     },
     {
@@ -33,7 +52,7 @@ const data = {
       brand: "Raymond",
       rating: 4.5,
       numReviews: 10,
-      countsInStock: 20,
+      countInStock: 20,
       description: "A popular shirt",
     },
     {
@@ -45,7 +64,7 @@ const data = {
       brand: "Oliver",
       rating: 4.5,
       numReviews: 10,
-      countsInStock: 20,
+      countInStock: 20,
       description: "Smart looking pants",
     },
     {
@@ -57,7 +76,7 @@ const data = {
       brand: "Zara",
       rating: 4.5,
       numReviews: 10,
-      countsInStock: 20,
+      countInStock: 20,
       description: "A popular pants",
     },
     {
@@ -69,10 +88,21 @@ const data = {
       brand: "Casely",
       rating: 4.5,
       numReviews: 10,
-      countsInStock: 20,
+      countInStock: 20,
+      description: "A popular pants",
+    },
+    {
+      name: "Test",
+      slug: "test",
+      category: "Pants",
+      image: "/images/pants3.jpg",
+      price: 75,
+      brand: "Casely",
+      rating: 4.5,
+      numReviews: 10,
+      countInStock: 40,
       description: "A popular pants",
     },
   ],
 };
-
 export default data;
