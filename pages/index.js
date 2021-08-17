@@ -17,7 +17,6 @@ export default function Home(props) {
   const router = useRouter();
   const { state, dispatch } = useContext(Store);
   const { topRatedProducts, featuredProducts } = props;
-  
   const addToCartHandler = async (product) => {
     const existItem = state.cart.cartItems.find((x) => x._id === product._id);
     const quantity = existItem ? existItem.quantity + 1 : 1;
@@ -51,7 +50,7 @@ export default function Home(props) {
       <Typography variant="h2">Popular Products</Typography>
       <Grid container spacing={3}>
         {topRatedProducts.map((product) => (
-          <Grid item md={3} key={product.name}>
+          <Grid item md={4} key={product.name}>
             <ProductItem
               product={product}
               addToCartHandler={addToCartHandler}
