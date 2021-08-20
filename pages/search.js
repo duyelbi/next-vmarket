@@ -14,7 +14,7 @@ import React, { useContext } from "react";
 import Layout from "../components/Layout";
 import db from "../utils/db";
 import Product from "../models/Product";
-import useStyles from "../utils/styles";
+import useStyles from "../utils/styles/main";
 import ProductItem from "../components/ProductItem";
 import { Store } from "../utils/Store";
 import axios from "axios";

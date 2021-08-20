@@ -39,8 +39,6 @@ const validationSchema = yup.object().shape({
     .required("Required!"),
 });
 
-const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
-
 export default function Register() {
   const initialValues = {
     name: "",
@@ -91,8 +89,9 @@ export default function Register() {
         initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={async (values) => {
-          await sleep(500);
-          alert(JSON.stringify(values, null, 2));
+          // await sleep(500);
+          // alert(JSON.stringify(values, null, 2));
+          await submitHandler(values);
         }}
       >
         {(props) => (

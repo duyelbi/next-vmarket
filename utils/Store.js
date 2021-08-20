@@ -15,9 +15,9 @@ const initialState = {
       ? Cookies.get("paymentMethod")
       : "",
   },
-  // userInfo: Cookies.get("userInfo")
-  //   ? JSON.parse(Cookies.get("userInfo"))
-  //   : null,
+  userInfo: Cookies.get("userInfo")
+    ? JSON.parse(Cookies.get("userInfo"))
+    : null,
 };
 
 function reducer(state, action) {

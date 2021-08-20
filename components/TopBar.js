@@ -58,12 +58,20 @@ export default function TopBar() {
         <Box display="flex" alignItems="center" className={classes.topbarLeft}>
           <Grid container direction="column" alignItems="center">
             <Grid item xs={12}>
-              <FormControl color="#primary" fullWidth margin="normal">
-                <Select displayEmpty>
-                  <MenuItem onClick={() => changLang("vi")} color="#primary">
+              <FormControl color="#fff" fullWidth margin="normal">
+                <Select displayEmpty name="plan">
+                  <MenuItem
+                    onClick={() => changLang("vi")}
+                    color="#fff"
+                    value="vi"
+                  >
                     VN
                   </MenuItem>
-                  <MenuItem onClick={() => changLang("en")} color="#primary">
+                  <MenuItem
+                    onClick={() => changLang("en")}
+                    color="#fff"
+                    value="en"
+                  >
                     EN
                   </MenuItem>
                 </Select>
