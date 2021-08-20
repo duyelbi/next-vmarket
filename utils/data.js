@@ -1,5 +1,8 @@
 import bcrypt from "bcryptjs";
 const data = {
+  logo: {
+    image: "/image/logo.svg",
+  },
   users: [
     {
       name: "Duy",

@@ -10,11 +10,15 @@ import { useContext } from "react";
 import { Store } from "../utils/Store";
 import ProductItem from "../components/ProductItem";
 import Carousel from "react-material-ui-carousel";
-import useStyles from "../utils/styles";
+import useStyles from "../utils/styles/main";
+
+
 
 export default function Home(props) {
   const classes = useStyles();
   const router = useRouter();
+
+
   const { state, dispatch } = useContext(Store);
   const { topRatedProducts, featuredProducts } = props;
   const addToCartHandler = async (product) => {
@@ -61,6 +65,7 @@ export default function Home(props) {
     </Layout>
   );
 }
+
 
 export async function getServerSideProps() {
   await db.connect();

@@ -1,6 +1,7 @@
 import { makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
+  // start style navbar
   navbar: {
     backgroundColor: "#ffffff",
     "& a": {
@@ -15,9 +16,14 @@ const useStyles = makeStyles((theme) => ({
   grow: {
     flexGrow: 1,
   },
+  // -----------------------------------------------------
+
+  // ---------------STYLES BODY-----------------------
   main: {
     minHeight: "80vh",
   },
+  // -----------------------------------------------------
+  // ---------------STYLES FOOTER-----------------------
   footer: {
     marginTop: 10,
     textAlign: "center",
@@ -43,6 +49,9 @@ const useStyles = makeStyles((theme) => ({
   },
   fullWidth: {
     width: "100%",
+  },
+  fullHeight: {
+    height: "100%",
   },
   reviewForm: {
     maxWidth: 800,

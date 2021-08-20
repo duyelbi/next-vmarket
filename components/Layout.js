@@ -7,7 +7,7 @@ import {
   Typography,
   Container,
   Link,
-  createMuiTheme,
+  createTheme,
   ThemeProvider,
   CssBaseline,
   Switch,
@@ -27,7 +27,7 @@ import {
 import MenuIcon from "@material-ui/icons/Menu";
 import CancelIcon from "@material-ui/icons/Cancel";
 import SearchIcon from "@material-ui/icons/Search";
-import useStyles from "../utils/styles";
+import useStyles from "../utils/styles/main";
 import { Store } from "../utils/Store";
 import { getError } from "../utils/error";
 import Cookies from "js-cookie";
@@ -37,11 +37,20 @@ import { useSnackbar } from "notistack";
 import axios from "axios";
 import { useEffect } from "react";
 
+// i18n
+import useTrans from "../pages/hooks/useTrans";
+
+
+// import components
+import TopBar from "./TopBar";
+
 export default function Layout({ title, description, children }) {
   const router = useRouter();
+  const t = useTrans();
+
   const { state, dispatch } = useContext(Store);
   const { darkMode, cart, userInfo } = state;
-  const theme = createMuiTheme({
+  const theme = createTheme({
     typography: {
       h1: {
         fontSize: "1.6rem",
@@ -62,6 +71,9 @@ export default function Layout({ title, description, children }) {
       secondary: {
         main: "#121212",
       },
+      bgBlue: {
+        main: "#0f3460",
+      }
     },
   });
   const classes = useStyles();
@@ -131,7 +143,13 @@ export default function Layout({ title, description, children }) {
       </Head>
       <ThemeProvider theme={theme}>
         <CssBaseline />
+        <TopBar />
         <Container>
+          <main>
+            <h1>{t.home.title}</h1>
+
+            <p>{t.home.content}</p>
+          </main>
           <AppBar position="static" className={classes.navbar}>
             <Toolbar className={classes.toolbar}>
               <Box display="flex" alignItems="center">
