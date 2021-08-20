@@ -145,11 +145,6 @@ export default function Layout({ title, description, children }) {
         <CssBaseline />
         <TopBar />
         <Container>
-          <main>
-            <h1>{t.home.title}</h1>
-
-            <p>{t.home.content}</p>
-          </main>
           <AppBar position="static" className={classes.navbar}>
             <Toolbar className={classes.toolbar}>
               <Box display="flex" alignItems="center">
@@ -212,7 +207,7 @@ export default function Layout({ title, description, children }) {
                   <InputBase
                     name="query"
                     className={classes.searchInput}
-                    placeholder="Search products"
+                    placeholder={t.layout.placeholderSearch}
                     onChange={queryChangeHandler}
                   />
                   <IconButton

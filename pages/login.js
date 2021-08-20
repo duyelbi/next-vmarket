@@ -12,7 +12,7 @@ import NextLink from "next/link";
 import React, { useContext, useEffect } from "react";
 import Layout from "../components/Layout";
 import { Store } from "../utils/Store";
-import useStyles from "../utils/styles";
+import useStyles from "../utils/styles/main";
 import Cookies from "js-cookie";
 import { Controller, useForm } from "react-hook-form";
 import { useSnackbar } from "notistack";

@@ -4,4 +4,7 @@ export default {
     title: "Chào mừng tới Viblo!",
     content: "Bắt đầu một bài viết nào",
   },
+  layout: {
+    placeholderSearch: "Tìm kiếm sản phẩm",
+  },
 };

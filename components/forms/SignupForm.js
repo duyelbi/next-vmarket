@@ -1,23 +1,16 @@
+import React from 'react';
+import NextLink from "next/link";
+import { useRouter } from "next/router";
+
+import { useFormik } from 'formik';
+import * as yup from 'yup';
 import {
-  List,
-  ListItem,
-  Typography,
-  TextField,
   Button,
+  ListItem,
+  TextField,
+  List,
   Link,
 } from "@material-ui/core";
-import axios from "axios";
-import { useRouter } from "next/router";
-import NextLink from "next/link";
-import React, { useContext, useEffect } from "react";
-import Layout from "../components/Layout";
-import { Store } from "../utils/Store";
-import useStyles from "../utils/styles/main";
-import Cookies from "js-cookie";
-import { useSnackbar } from "notistack";
-
-import { useFormik } from "formik";
-import * as yup from "yup";
 
 const validationSchema = yup.object({
   name: yup
@@ -39,68 +32,26 @@ const validationSchema = yup.object({
     .required("Required!"),
 });
 
-export default function Register() {
-
-    const formik = useFormik({
-      initialValues: {
-        name: "",
-        email: "",
-        password: "",
-        confirmPassword: "",
-      },
-      validationSchema: validationSchema,
-      onSubmit: (values) => {
-        alert(JSON.stringify(values, null, 2));
-        console.log(JSON.stringify(values, null, 2));
-      },
-    });
-  
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
-  
+const SignupForm = () => {
   const router = useRouter();
   const { redirect } = router.query;
-  const { state, dispatch } = useContext(Store);
-  const { userInfo } = state;
-  useEffect(() => {
-    if (userInfo) {
-      router.push("/");
-    }
-  }, []);
 
+  const formik = useFormik({
+    initialValues: {
+      name: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+    },
+    validationSchema: validationSchema,
+    onSubmit: (values) => {
+      alert(JSON.stringify(values, null, 2));
+    },
+  });
 
-  const classes = useStyles();
-
-   const submitHandler = async ({ name, email, password, confirmPassword }) => {
-     closeSnackbar();
-     if (password !== confirmPassword) {
-       enqueueSnackbar("Passwords don't match", { variant: "error" });
-       return;
-     }
-     try {
-       const { data } = await axios.post("/api/users/register", {
-         name,
-         email,
-         password,
-       });
-       dispatch({ type: "USER_LOGIN", payload: data });
-       Cookies.set("userInfo", data);
-       router.push(redirect || "/");
-     } catch (err) {
-       enqueueSnackbar(
-         err.response.data ? err.response.data.message : err.message,
-         { variant: "error" }
-       );
-     }
-   };
   return (
-    <Layout title="Register">
-      <form
-        onSubmit={formik.handleSubmit}
-        className={classes.form}
-      >
-        <Typography component="h1" variant="h1">
-          Register
-        </Typography>
+    <div>
+      <form onSubmit={formik.handleSubmit}>
         <List>
           <ListItem>
             <TextField
@@ -178,6 +129,8 @@ export default function Register() {
           </ListItem>
         </List>
       </form>
-    </Layout>
+    </div>
   );
-}
+};
+
+export default SignupForm;

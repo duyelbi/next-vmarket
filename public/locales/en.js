@@ -4,4 +4,7 @@ export default {
     title: "Wellcome to Viblo!",
     content: "Start a content",
   },
+  layout: {
+    placeholderSearch: "Search Product",
+  },
 };
