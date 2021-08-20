@@ -16,10 +16,10 @@ import useStyles from "../utils/styles/main";
 import Cookies from "js-cookie";
 import { useSnackbar } from "notistack";
 
-import { useFormik } from "formik";
+import { Formik } from "formik";
 import * as yup from "yup";
 
-const validationSchema = yup.object({
+const validationSchema = yup.object().shape({
   name: yup
     .string("Enter your name")
     .min(2, "Mininum 2 characters")
@@ -39,24 +39,18 @@ const validationSchema = yup.object({
     .required("Required!"),
 });
 
-export default function Register() {
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
-    const formik = useFormik({
-      initialValues: {
-        name: "",
-        email: "",
-        password: "",
-        confirmPassword: "",
-      },
-      validationSchema: validationSchema,
-      onSubmit: (values) => {
-        alert(JSON.stringify(values, null, 2));
-        console.log(JSON.stringify(values, null, 2));
-      },
-    });
-  
+export default function Register() {
+  const initialValues = {
+    name: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  };
+
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
-  
+
   const router = useRouter();
   const { redirect } = router.query;
   const { state, dispatch } = useContext(Store);
@@ -67,117 +61,133 @@ export default function Register() {
     }
   }, []);
 
-
   const classes = useStyles();
 
-   const submitHandler = async ({ name, email, password, confirmPassword }) => {
-     closeSnackbar();
-     if (password !== confirmPassword) {
-       enqueueSnackbar("Passwords don't match", { variant: "error" });
-       return;
-     }
-     try {
-       const { data } = await axios.post("/api/users/register", {
-         name,
-         email,
-         password,
-       });
-       dispatch({ type: "USER_LOGIN", payload: data });
-       Cookies.set("userInfo", data);
-       router.push(redirect || "/");
-     } catch (err) {
-       enqueueSnackbar(
-         err.response.data ? err.response.data.message : err.message,
-         { variant: "error" }
-       );
-     }
-   };
+  const submitHandler = async ({ name, email, password, confirmPassword }) => {
+    closeSnackbar();
+    if (password !== confirmPassword) {
+      enqueueSnackbar("Passwords don't match", { variant: "error" });
+      return;
+    }
+    try {
+      const { data } = await axios.post("/api/users/register", {
+        name,
+        email,
+        password,
+      });
+      dispatch({ type: "USER_LOGIN", payload: data });
+      Cookies.set("userInfo", data);
+      router.push(redirect || "/");
+    } catch (err) {
+      enqueueSnackbar(
+        err.response.data ? err.response.data.message : err.message,
+        { variant: "error" }
+      );
+    }
+  };
   return (
     <Layout title="Register">
-      <form
-        onSubmit={formik.handleSubmit}
-        className={classes.form}
+      <Formik
+        initialValues={initialValues}
+        validationSchema={validationSchema}
+        onSubmit={async (values) => {
+          await sleep(500);
+          alert(JSON.stringify(values, null, 2));
+        }}
       >
-        <Typography component="h1" variant="h1">
-          Register
-        </Typography>
-        <List>
-          <ListItem>
-            <TextField
-              variant="outlined"
-              fullWidth
-              id="name"
-              label="name"
-              inputProps={{ type: "name" }}
-              name="name"
-              value={formik.values.name}
-              onChange={formik.handleChange}
-              error={formik.touched.name && Boolean(formik.errors.name)}
-              helperText={formik.touched.name && formik.errors.name}
-            ></TextField>
-          </ListItem>
-          <ListItem>
-            <TextField
-              variant="outlined"
-              fullWidth
-              id="email"
-              label="email"
-              inputProps={{ type: "email" }}
-              name="email"
-              value={formik.values.email}
-              onChange={formik.handleChange}
-              error={formik.touched.email && Boolean(formik.errors.email)}
-              helperText={formik.touched.email && formik.errors.email}
-            ></TextField>
-          </ListItem>
-          <ListItem>
-            <TextField
-              variant="outlined"
-              fullWidth
-              id="password"
-              label="password"
-              inputProps={{ type: "password" }}
-              name="password"
-              type="password"
-              value={formik.values.password}
-              onChange={formik.handleChange}
-              error={formik.touched.password && Boolean(formik.errors.password)}
-              helperText={formik.touched.password && formik.errors.password}
-            ></TextField>
-          </ListItem>
-          <ListItem>
-            <TextField
-              variant="outlined"
-              fullWidth
-              id="confirmPassword"
-              label="Confirm Password"
-              inputProps={{ type: "password" }}
-              name="confirmPassword"
-              type="password"
-              value={formik.values.confirmPassword}
-              onChange={formik.handleChange}
-              error={
-                formik.touched.confirmPassword &&
-                Boolean(formik.errors.confirmPassword)
-              }
-              helperText={
-                formik.touched.confirmPassword && formik.errors.confirmPassword
-              }
-            ></TextField>
-          </ListItem>
-          <ListItem>
-            <Button variant="contained" type="submit" fullWidth color="primary">
+        {(props) => (
+          <form className={classes.form} onSubmit={props.handleSubmit}>
+            <Typography component="h1" variant="h1">
               Register
-            </Button>
-          </ListItem>
-          <ListItem>
-            Already have an account? &nbsp;
-            <NextLink href={`/login?redirect=${redirect || "/"}`} passHref>
-              <Link>Login</Link>
-            </NextLink>
-          </ListItem>
-        </List>
-      </form>
+            </Typography>
+            <List>
+              <ListItem>
+                <TextField
+                  type="text"
+                  variant="outlined"
+                  fullWidth
+                  id="name"
+                  label="name"
+                  name="name"
+                  onChange={props.handleChange}
+                  onBlur={props.handleBlur}
+                  value={props.values.name}
+                  error={props.touched.name && Boolean(props.errors.name)}
+                  helperText={props.touched.name && props.errors.name}
+                ></TextField>
+              </ListItem>
+              <ListItem>
+                <TextField
+                  variant="outlined"
+                  fullWidth
+                  id="email"
+                  label="email"
+                  name="email"
+                  onChange={props.handleChange}
+                  onBlur={props.handleBlur}
+                  value={props.values.email}
+                  error={props.touched.email && Boolean(props.errors.email)}
+                  helperText={props.touched.email && props.errors.email}
+                ></TextField>
+              </ListItem>
+              <ListItem>
+                <TextField
+                  variant="outlined"
+                  fullWidth
+                  id="password"
+                  label="password"
+                  name="password"
+                  type="password"
+                  onChange={props.handleChange}
+                  onBlur={props.handleBlur}
+                  value={props.values.password}
+                  error={
+                    props.touched.password && Boolean(props.errors.password)
+                  }
+                  helperText={props.touched.password && props.errors.password}
+                ></TextField>
+              </ListItem>
+              <ListItem>
+                <TextField
+                  variant="outlined"
+                  fullWidth
+                  id="confirmPassword"
+                  label="Confirm Password"
+                  name="confirmPassword"
+                  type="password"
+                  onChange={props.handleChange}
+                  onBlur={props.handleBlur}
+                  value={props.values.confirmPassword}
+                  error={
+                    props.touched.confirmPassword &&
+                    Boolean(props.errors.confirmPassword)
+                  }
+                  helperText={
+                    props.touched.confirmPassword &&
+                    props.errors.confirmPassword
+                  }
+                ></TextField>
+              </ListItem>
+              <ListItem>
+                <Button
+                  variant="contained"
+                  type="submit"
+                  fullWidth
+                  color="primary"
+                >
+                  Register
+                </Button>
+              </ListItem>
+              <ListItem>
+                Already have an account? &nbsp;
+                <NextLink href={`/login?redirect=${redirect || "/"}`} passHref>
+                  <Link>Login</Link>
+                </NextLink>
+              </ListItem>
+            </List>
+          </form>
+        )}
+      </Formik>
     </Layout>
   );
 }
