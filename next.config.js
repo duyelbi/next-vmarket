@@ -2,7 +2,7 @@ const { i18n } = require("./i18n.config");
 
 module.exports = {
   i18n,
-  reactStrictMode: true,
+  reactStrictMode: false,
   images: { domains: ["res.cloudinary.com"] },
   env: {
     BASE_URL: "http://localhost:3000",
